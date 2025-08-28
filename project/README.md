@@ -90,6 +90,33 @@ When handling the actual dataset, I only use the first 2 functions, since no col
 
 - Removing or winsorizing outliers alters the distribution, variance, and correlation structure. This can understate the true volatility of trading activity.
 
+## Stage 09 - Feature Engineering
+
+### Rationale
+
+1. `log_sp500_close`
+
+    - Financial indices are typically non-stationary and could grow exponentially over time. Taking the log stabilizes variance, compresses large values, and makes percentage changes additive.
+    - Since the VIX is often seen as the panic index, it tends to spike when equity markets fall. Looking at `log_sp500_close` makes the relationship between changes in VIX and the S&P more interpretable in scatterplots.
+
+2. `vix_delta`, `sp500_delta`
+
+    - Instead of absolute price levels, daily changes capture the market’s short-term movement.
+    - The scatterplot of `vix_delta` v.s. `sp500_delta` highlights the inverse relationship: when the S&P 500 drops, the VIX usually jumps. This captures the core dynamic: volatility rises during downturns and falls during rallies.
+
+3. `vix_spread`, `sp500_spread`
+
+    - The high-low spread within a day reflects market volatility and trading range. These features measure the “turbulence” of each index, independent of closing direction.
+    - The scatterplot of `vix_spread` v.s. `sp500_spread` helps explore whether days of high uncertainty in the VIX coincide with wide trading ranges in the S&P 500. If a positive relationship exists, it suggests that intraday instability in equities and perceived volatility move together.
+
+### Connecion to Problem
+
+The problem is to understand the relationship between VIX and S&P 500.
+
+- Log transformation normalizes the scale, ensuring the relationship isn’t distorted by long-term S&P growth.
+- Delta features directly test the short-term inverse correlation.
+- Spread features capture market instability, helping identify whether volatility manifests as wider trading ranges in both indices simultaneously.
+
 ## Repo Plan
 
 - `data`: raw and processed data of VIX and S&P 500
