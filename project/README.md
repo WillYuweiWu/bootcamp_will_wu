@@ -30,6 +30,28 @@ This Volatility Index (VIX) is a widely recognized quantifier of the market vola
 - Gather VIX and S&P 500 data → Data Aquisition, Storage, and Processing (Stage 04-06) → A clean dataset in `data` and useful functions in `src`
 - Causal analyses → Data Analysis and Visualization (Stage 07-12) → Plots, outputs, and predictive models in `deliverables`
 
+## Data Storage
+
+### Folder Structure
+
+- `data`
+    - `raw`: storage place for raw data (CSV files)
+    - `processed`: storage place for processed data (Parquet files)
+
+### Formats Used
+
+- **CSV**: used for raw data
+    - Easy to read, widely supported by various languages and tools, friendly for sharing and inspection
+    - Larger file size and subsequent slower read/write speed, everything becomes text until parsed
+- **Parquet**: used for processed data
+    - Highly compressed, faster read/write speed, optimized for analytics
+    - Not readable, requires extra libraries, more complex to set up
+
+### Read / Write
+
+- **CSV** files: read with `.read_csv()` and written with `.to_csv()`
+- **Parquet** files: read with `.read_parquet()` and written with `.to_parquet()`
+
 ## Repo Plan
 
 - `data`: raw and processed data of VIX and S&P 500
