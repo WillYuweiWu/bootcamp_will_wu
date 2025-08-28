@@ -30,7 +30,7 @@ This Volatility Index (VIX) is a widely recognized quantifier of the market vola
 - Gather VIX and S&P 500 data → Data Aquisition, Storage, and Processing (Stage 04-06) → A clean dataset in `data` and useful functions in `src`
 - Causal analyses → Data Analysis and Visualization (Stage 07-12) → Plots, outputs, and predictive models in `deliverables`
 
-## Data Storage
+## Stage 05 - Data Storage
 
 ### Folder Structure
 
@@ -51,6 +51,26 @@ This Volatility Index (VIX) is a widely recognized quantifier of the market vola
 
 - **CSV** files: read with `.read_csv()` and written with `.to_csv()`
 - **Parquet** files: read with `.read_parquet()` and written with `.to_parquet()`
+
+## Stage 06 - Data Preprocessing
+
+In `cleaning.py`, I create 3 functions for my cleaning strategy:
+
+1. `fill_missing_median`
+    - **Purpose**: replace `NaN` values in a numeric column with that column's median. 
+    - **Return**: a new dataframe with missing data filled.  
+
+2. `drop_missing`
+    - **Purpose**: remove rows with missing values. 
+    - In this case, use `thresh = 0.1`: drop the rows that has more than 10% values missing. 
+    - **Return**: a new dataframe with these rows removed. 
+    
+3. `normalize_data`
+    - **Purpose**: scale numeric data so columns are comparable. 
+    - Uses the `zscore` method so that a column $\sim \mathcal{N} (\mu = 0, \sigma = 1)$. 
+    - **Return**: a new dataframe that's normalized. 
+
+When handling the actual dataset, I only use the first 2 functions, since no column needs to be normalized at this stage. 
 
 ## Repo Plan
 
