@@ -72,6 +72,24 @@ In `cleaning.py`, I create 3 functions for my cleaning strategy:
 
 When handling the actual dataset, I only use the first 2 functions, since no column needs to be normalized at this stage. 
 
+## Stage 07 - Outlier Analysis
+
+### Outlier Assumptions
+
+- The IQR method assumes that the distribution is reasonably symmetric and that values lying beyond 1.5 × IQR from the quartiles are unusually extreme. It works well for skewed but not heavily tailed distributions.
+
+- The Z-Score method assumes normality of the data. Values more than $3\sigma$ from $\mu$ are flagged as outliers. This method may mis-identify points if the underlying distribution is skewed. 
+
+- Winsorization assumes that extreme values are likely noise or errors, not genuine signals, and caps them into a centrain boundary, in this case the 5th – 95th percentile. This prevents extreme values from dominating summary statistics, but assumes trimming extremes does not discard meaningful information.
+
+### Potential Risks
+
+- High trading volumes for the S&P 500 might not always be errors but rather reflections of market events. Treating them as outliers risks discarding meaningful signals.
+
+- The cutoff values are arbitrary. Different thresholds may classify different observations as outliers, leading to inconsistent results.
+
+- Removing or winsorizing outliers alters the distribution, variance, and correlation structure. This can understate the true volatility of trading activity.
+
 ## Repo Plan
 
 - `data`: raw and processed data of VIX and S&P 500
